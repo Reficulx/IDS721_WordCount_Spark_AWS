@@ -27,7 +27,7 @@ Remark: `m3.xlarge` option is no longer good for this project, the EMR setup wil
 #### Upload input file on S3
 - Now head over to `Services`->`S3` and create a bucket named `word-count-data`, open this S3 link in a new tab or window.  
 - In the bucket, create a folder named word-count-spark-emr. 
-- Upload the input.txt file from this repo, it is a poem called "No man is an island" by John Donne 
+- Upload the `input.txt` file from this repo, it is a poem called "No man is an island" by John Donne 
 - Head forward and submit the file
 - No need to make the file public for everyone, as long as your account could access it. 
 
