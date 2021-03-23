@@ -1,4 +1,4 @@
-# A simple Word Count Example using pyspark on AWS EMR
+# Simple Word Count Project using Spark on AWS Elastic MapReduce
 
 #### Clone the repository
 - Clone this repo to your local machine and unzip the file.
