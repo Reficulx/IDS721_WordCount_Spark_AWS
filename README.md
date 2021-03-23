@@ -34,7 +34,11 @@ Remark: `m3.xlarge` option is no longer good for this project, the EMR setup wil
 #### Creating wordcount.py on the Master node
 - Now on our created cluster page (Cluster `list`->`our cluster`)
 - Near the `Master public DNS:` field click the SSH button
-- Follow the instructions and SSH on the master node. After you follow the instructions and build the connection with AWS EMR through Terminal, the following text will show in the Terminal.  
+- Follow the instructions and SSH on the master node. 
+- 
+![img](img/ssh_info.png)  
+
+- After you follow the instructions and build the connection with AWS EMR through Terminal, the following text will show in the Terminal.  
 
 ![img](img/emr_success.png)  
 
