@@ -1,68 +1,60 @@
 # A simple Word Count Example using pyspark on AWS EMR
 
 #### Clone the repository
-- Clone this repo to your local machine.
+- Clone this repo to your local machine and unzip the file.
 
 #### Create cluster
 - We'll start off by creating an AWS EMR cluster, just as in the first assignment. Head over to [AWS EMR](https://aws.amazon.com/emr/) and get started.
 - Click on Create cluster and configure as per below - 
 
-![img](http://imgur.com/Ed6DlBS.jpg)
+![img](img/emr_config.png)  
 
-- The cluster remains in the 'Starting' state for about 10 - 15 minutes. Once the cluster is ready for use, the status will change to 'Waiting'. You can now go ahead and use it.
+Remark: `m3.xlarge` option is no longer good for this project, the EMR setup will fail if using this option.  
 
-#### Create private key for ssh access
-- Click on "Learn how to create an EC2 key pair" to create and modify your EC2 key pair.
+- Click on "Learn how to create an EC2 key pair" to create and modify your EC2 key pair. **This step is very important, and you have to remember the directory where you save the .pem file for the SSH key pairs.**  
+
+- The cluster remains in the 'Starting' state for about 10 - 15 minutes. Once the cluster is ready for use, the status will change to 'Waiting'. You can now go ahead and use it.  
+
+- Don't close this page yet. You will need it later.  
+
 
 #### Allow inbound SSH traffic on the master node
-- On the left top corner goto Services->EC2
-- On the left hand panel goto Security Groups under Network & Security
+- On the left top corner goto `Services`->`EC2`, open this link in a new tab.  
+- On the left hand panel goto `Security Groups` under Network & Security
 - Select the group named "ElasticMapReduce-master" and click Edit in the Inbound tab below
 - Add rule, select SSH for type and My IP as source. Save
 
 #### Upload input file on S3
-- Now head over to Services->S3 and create a bucket named csds
-- In the bucket, create a folder named csds-spark-emr
-- Upload the input.txt file from this repo
-- In permissions, tick the box for read everywhere. Nothing to do in properties
+- Now head over to `Services`->`S3` and create a bucket named `word-count-data`, open this S3 link in a new tab or window.  
+- In the bucket, create a folder named word-count-spark-emr. 
+- Upload the input.txt file from this repo, it is a poem called "No man is an island" by John Donne 
 - Head forward and submit the file
-- Click on the uploaded file and click the Make public button just to make sure
+- No need to make the file public for everyone, as long as your account could access it. 
 
 #### Creating wordcount.py on the Master node
-- Now on our created cluster page (Cluster list->our cluster)
-- Near the "Master public DNS:" field click the SSH button
-- Follow the instructions and SSH on the master node
-- In /home/hadoop create wordcount.py (vi wordcount.py)
-- Copy over the contents from wordcount.py in this repo
-- In wordcount.py change the input file s3 url to point to input.txt in your bucket, created above
-- Save
+- Now on our created cluster page (Cluster `list`->`our cluster`)
+- Near the `Master public DNS:` field click the SSH button
+- Follow the instructions and SSH on the master node. After you follow the instructions and build the connection with AWS EMR through Terminal, the following text will show in the Terminal.  
+
+![img](img/emr_success.png)  
+
+- In `/home/hadoop` create `wordcount.py` using `nano wordcount.py` in the terminal (Mac/Linux System) 
+- Copy over the contents from `wordcount.py` in this repo
+- In `wordcount.py` change the input file s3 url to point to `input.txt` in your S3 bucket, which was created before. You could copy the link of you S3 bucket as the image shows below.  
+
+![img](img/input_link.png)  
+
+- Save, if using `nano`, hit `Ctrl + X` and hit `y`, then hit `Enter`. 
 
 #### Executing wordcount.py
-- Go through the code in wordcount.py and checkout what it does
-- Execute the script using "spark-submit wordcount.py | tee output.txt"
-- This will also generate output.txt with a copy of the logs
-- You may have the output file copied to your s3 bucket by using the cmd "aws s3 cp output.txt s3://my_bucket/my_folder/"
+- Go through the code in `wordcount.py` and checkout what it does
+- Execute the script using `spark-submit wordcount.py | tee output.txt`
+- This will also generate `output.txt` with a copy of the logs
+- You may have the output file copied to your s3 bucket by using the cmd `aws s3 cp output.txt s3://my_bucket/my_folder/`
 - You should see the result of your code among other logs, should look like
 
-And: 2<br>
-on: 1<br>
-then: 1<br>
-Aberbrothok: 2<br>
-bell: 1<br>
-that: 1<br>
-of: 2<br>
-knew: 1<br>
-Had: 1<br>
-placed: 1<br>
-Abbot: 2<br>
-they: 1<br>
-worthy: 1<br>
-blest: 1<br>
-Rock: 2<br>
-Inchcape: 1<br>
-the: 3<br>
-The: 1<br>
-perilous: 1<br>
+
+![img](img/output.png)  
 
 - You're encouraged to play around with the code, check out the documentation and try things out
 
